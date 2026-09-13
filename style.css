@@ -18,40 +18,13 @@ button {
     padding: 12px 25px;
     font-size: 16px;
     cursor: pointer;
-}* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding-top: 100px;
-}
 
-h1 {
-    margin-bottom: 30px;
-}
-
-button {
-    padding: 12px 25px;
-    font-size: 16px;
-    cursor: pointer;
-}
-#gameArea {
-    width: 90%;
-    max-width: 800px;
-    height: 500px;
-    margin: 30px auto;
-    border: 2px solid white;
-    border-radius: 15px;
-    position: relative;
-    overflow: hidden;
-}
 /*
    Game Screens
  */
+
 
 #gameScreen {
     display: none;
@@ -76,4 +49,222 @@ button {
     border-radius: 15px;
     position: relative;
     overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+/* Fruit Movement */
+
+.fruit {
+    position: absolute;
+    font-size: 50px;
+    bottom: -60px;
+    animation: moveFruit 3s linear forwards;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
+}
+
+@keyframes moveFruit {
+    from {
+        bottom: -60px;
+    }
+
+    to {
+        bottom: 100%;
+    }
+}
+
+
+/* ===
+   Slicing Blade Effect
+=== */
+
+
+.blade {
+    position: fixed;
+    width: 7px;
+    height: 55px;
+
+    background: linear-gradient(
+        to bottom,
+        white 0%,
+        #e8e8e8 35%,
+        #ff3b30 70%,
+        #ff9500 100%
+    );
+
+    border-radius: 50px;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(45deg);
+
+    pointer-events: none;
+
+    z-index: 1000;
+
+    box-shadow:
+        0 0 6px white,
+        0 0 14px #ff3b30,
+        0 0 20px #ff9500;
+
+    animation: bladeFade 0.1s linear forwards;
+}
+
+
+@keyframes bladeFade {
+
+    from {
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            rotate(45deg)
+            scale(1);
+    }
+
+    to {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -50%)
+            rotate(45deg)
+            scale(1.35);
+    }
+
+}
+
+
+
+/* ===
+   Fruit Splash Particles
+=== */
+
+
+
+.splash {
+
+    position: fixed;
+
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #ff3b30;
+
+    pointer-events: none;
+
+    z-index: 900;
+
+    box-shadow:
+        0 0 5px #ff3b30;
+
+    animation:
+        splashMove 0.45s ease-out forwards;
+}
+
+
+@keyframes splashMove {
+
+    from {
+
+        opacity: 1;
+
+        transform:
+            translate(0, 0)
+            scale(1.2);
+    }
+
+    to {
+
+        opacity: 0;
+
+        transform:
+            translate(var(--moveX), var(--moveY))
+            scale(0.2);
+    }
+
+}
+
+
+
+/* ===
+   Fruit Split Effect
+=== */
+
+
+
+.fruit-half {
+
+    position: fixed;
+
+    font-size: 50px;
+
+    pointer-events: none;
+
+    z-index: 800;
+
+}
+
+
+.left-half {
+
+    animation:
+        leftSplit 0.4s ease-out forwards;
+
+}
+
+
+.right-half {
+
+    animation:
+        rightSplit 0.4s ease-out forwards;
+
+}
+
+
+@keyframes leftSplit {
+
+    from {
+
+        opacity: 1;
+
+        transform:
+            translate(0, 0)
+            rotate(0deg);
+    }
+
+    to {
+
+        opacity: 0;
+
+        transform:
+            translate(-35px, 35px)
+            rotate(-25deg);
+    }
+
+}
+
+
+@keyframes rightSplit {
+
+    from {
+
+        opacity: 1;
+
+        transform:
+            translate(0, 0)
+            rotate(0deg);
+    }
+
+    to {
+
+        opacity: 0;
+
+        transform:
+            translate(35px, 35px)
+            rotate(25deg);
+    }
+
 }
