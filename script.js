@@ -9,6 +9,7 @@ const timerDisplay = document.getElementById("timer");
 const gameOverScreen = document.getElementById("gameOverScreen");
 const finalScoreDisplay = document.getElementById("finalScore");
 const playAgainButton = document.getElementById("playAgainButton");
+const quitButton = document.getElementById("quitButton");
 
 
 let fruitInterval;
@@ -301,4 +302,9 @@ playAgainButton.addEventListener("click", function () {
 
     fruitInterval = setInterval(createFruit, 900);
     timerInterval = setInterval(updateTimer, 1000);
+});
+
+
+quitButton.addEventListener("click",function(){
+    gameOver();
 });
