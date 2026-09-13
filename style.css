@@ -59,6 +59,7 @@ Game Over screen*/
     overflow: hidden;
     user-select: none;
     -webkit-user-select: none;
+    touch-action: none;
 }
 /* Fruit Movement */
 

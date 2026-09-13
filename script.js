@@ -204,6 +204,61 @@ gameArea.addEventListener("mousemove", function (event) {
     }
 
 });
+
+// Mobile Touch Controls
+
+gameArea.addEventListener("touchstart", function (event) {
+    event.preventDefault();
+    isSlicing = true;
+}, { passive: false });
+
+
+gameArea.addEventListener("touchmove", function (event) {
+    event.preventDefault();
+
+    if (!isSlicing) {
+        return;
+    }
+
+    const touch = event.touches[0];
+
+    const x = touch.clientX;
+    const y = touch.clientY;
+
+    // Create blade
+    createBlade(x, y);
+
+    const object = document.elementFromPoint(x, y);
+
+    // Fruit cut
+    if (object && object.classList.contains("fruit")) {
+
+        createSplash(x, y);
+
+        createFruitHalves(object);
+
+        score += 10;
+        scoreDisplay.textContent = score;
+
+        object.remove();
+    }
+
+    // Bomb cut
+    if (object && object.classList.contains("bomb")) {
+
+        lives--;
+        updateLives();
+
+        object.remove();
+    }
+
+}, { passive: false });
+
+
+gameArea.addEventListener("touchend", function () {
+    isSlicing = false;
+});
+
 // Blade Effect
 
 function createBlade(x, y) {
@@ -311,5 +366,5 @@ quitButton.addEventListener("click",function(){
 });
 
 fabButton.addEventListener("click",function(){
-    alert("HOW TO PLAY\n\"n"+"🍉Slice the fruits = +10 points\n"+"💣Don't slice the bombs!\n"+"💔Missing a fruit costs 1 life\n"+"⏱️You have 2 minutes\n\n"+"Have fun!");
+    alert("HOW TO PLAY\n"+"🍉Slice the fruits = +10 points\n"+"💣Don't slice the bombs!\n"+"💔Missing a fruit costs 1 life\n"+"⏱️You have 2 minutes\n\n"+"Have fun!");
 });
