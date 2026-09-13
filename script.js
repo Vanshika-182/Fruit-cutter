@@ -6,6 +6,10 @@ const gameArea = document.getElementById("gameArea");
 const scoreDisplay = document.getElementById("score");
 const livesDisplay = document.getElementById("lives");
 const timerDisplay = document.getElementById("timer");
+const gameOverScreen = document.getElementById("gameOverScreen");
+const finalScoreDisplay = document.getElementById("finalScore");
+const playAgainButton = document.getElementById("playAgainButton");
+
 
 let fruitInterval;
 let timerInterval;
@@ -114,6 +118,24 @@ function updateLives(){
         }
     }
     livesDisplay.textContent = hearts;
+    
+    if(lives <= 0){
+        gameOver();
+    }
+}
+
+//game over
+
+function gameOver() {
+    clearInterval(fruitInterval);
+    clearInterval(timerInterval);
+
+    gameArea.innerHTML = "";
+
+    gameScreen.style.display = "none";
+    gameOverScreen.style.display = "block";
+
+    finalScoreDisplay.textContent = score;
 }
 
 
@@ -262,3 +284,21 @@ function createFruitHalves(fruit) {
         rightHalf.remove();
     }, 400);
 }
+
+//play again 
+playAgainButton.addEventListener("click", function () {
+    gameOverScreen.style.display = "none";
+    gameScreen.style.display = "block";
+
+    score = 0;
+    lives = 3;
+    timeLeft = 120;
+    fruitSpeed = 3;
+
+    scoreDisplay.textContent = score;
+    livesDisplay.textContent = "❤️❤️❤️";
+    timerDisplay.textContent = "02:00";
+
+    fruitInterval = setInterval(createFruit, 900);
+    timerInterval = setInterval(updateTimer, 1000);
+});

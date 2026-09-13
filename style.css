@@ -30,6 +30,12 @@ button {
     display: none;
 }
 
+/*
+Game Over screen*/
+#gameOverScreen {
+    display: none;
+}
+
 #gameInfo {
     width: 90%;
     max-width: 800px;
