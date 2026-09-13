@@ -3,9 +3,18 @@ const startButton = document.getElementById("startButton");
 const startScreen = document.getElementById("startScreen");
 const gameScreen = document.getElementById("gameScreen");
 const gameArea = document.getElementById("gameArea");
+const scoreDisplay = document.getElementById("score");
+const livesDisplay = document.getElementById("lives");
+const timerDisplay = document.getElementById("timer");
 
 let fruitInterval;
+let timerInterval;
+
 let fruitSpeed = 3;
+let score = 0;
+let lives = 3;
+let timeLeft = 120;
+
 const fruits = ["🍉","🥭","🥝","🍊","🍇","🍓","🍍"];
 
 let isSlicing = false;
@@ -17,7 +26,20 @@ startButton.addEventListener("click", function () {
     startScreen.style.display = "none";
     gameScreen.style.display = "block";
 
+    // reset game values
+    
+    score = 0;
+    lives = 3;
+    timeLeft = 120;
+
+    scoreDisplay.textContent = score ;
+    livesDisplay.textContent = " ❤️❤️❤️";
+    timerDisplay.textContent = "02:00";
+
+
     fruitInterval = setInterval(createFruit,900);
+    timerInterval = setInterval(updateTimer,1000);
+
     setInterval(function(){
         if (fruitSpeed > 0.8){
             fruitSpeed -= 0.2;
@@ -25,6 +47,25 @@ startButton.addEventListener("click", function () {
     },4000);
 
 });
+
+
+//Timer
+
+
+function updateTimer(){
+    timeLeft--;
+    const minutes = Math.floor(timeLeft/60);
+    const seconds = timeLeft % 60;
+    timerDisplay.textContent = String(minutes).padStart(2,"0")+":"+String(seconds).padStart(2,"0");
+    if (timeLeft <= 0){
+        clearInterval(timerInterval);
+        clearInterval(fruitInterval);
+
+        alert("Time's Up! Your Score: "+ score);
+
+    }
+}
+
 
 //create fruit
 
@@ -92,8 +133,12 @@ gameArea.addEventListener("mousemove", function (event) {
         createSplash(x, y);
 
         //create two fruit halves
+        createFruitHalves(fruit);
 
-
+        //Add score
+        score += 10;
+        scoreDisplay.textContent = score;
+        
         fruit.remove();
 
     }
