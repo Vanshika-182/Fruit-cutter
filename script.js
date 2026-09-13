@@ -67,25 +67,53 @@ function updateTimer(){
 }
 
 
-//create fruit
+//create fruit/bomb
 
 function createFruit() {
     const fruit = document.createElement("div");
 
+    //20% bomb 
+    if (Math.random() < 0.2){
+        fruit.textContent ="💣";
+        fruit.classList.add("bomb");
+    }
+    else{
+
     fruit.textContent = fruits[Math.floor(Math.random()*fruits.length)];
     fruit.classList.add("fruit");
+    }
     fruit.style.animationDuration = fruitSpeed + "s";
 
     fruit.style.left = Math.random() * 90 + "%";
 
     gameArea.appendChild(fruit);
 
-    //remove fruit when reaches top
+    //remove objects when animation ends 
 
     
     fruit.addEventListener("animationend", function () {
+        if(fruit.classList.contains("fruit")){
+            lives--;
+            updateLives();
+
+        }
         fruit.remove();
     });
+}
+
+
+//update lives
+
+function updateLives(){
+    let hearts ="";
+    for(let i = 1;i <= 3;i++){
+        if(i <= lives){
+            hearts += "❤️";
+        }else{
+            hearts += "💔";
+        }
+    }
+    livesDisplay.textContent = hearts;
 }
 
 
@@ -109,7 +137,7 @@ gameArea.addEventListener("mouseup", function () {
 
 
 
-// Detect Fruit While Slicing
+// Detect Fruit/bomb  While Slicing
 
 
 gameArea.addEventListener("mousemove", function (event) {
@@ -124,23 +152,31 @@ gameArea.addEventListener("mousemove", function (event) {
     //create blade
 
     createBlade(x, y);
-    const fruit = document.elementFromPoint(x, y);
+    const object = document.elementFromPoint(x, y);
 
-    if (fruit && fruit.classList.contains("fruit")) {
+    if (object&& object.classList.contains("fruit")) {
         
 
         // create splash 
         createSplash(x, y);
 
         //create two fruit halves
-        createFruitHalves(fruit);
+        createFruitHalves(object);
 
         //Add score
         score += 10;
         scoreDisplay.textContent = score;
         
-        fruit.remove();
+        object.remove();
 
+    }
+
+    //bomb cut 
+    if (object && object.classList.contains("bomb")){
+        lives--;
+        updateLives();
+
+        object.remove();
     }
 
 });

@@ -65,12 +65,15 @@ button {
 }
 
 @keyframes moveFruit {
-    from {
+    0% {
         bottom: -60px;
     }
+    50% {
+        bottom: 70%;
+    }
 
-    to {
-        bottom: 100%;
+    100% {
+        bottom: -60px;
     }
 }
 
@@ -267,4 +270,14 @@ button {
             rotate(25deg);
     }
 
+}
+
+.bomb {
+    position: absolute;
+    font-size: 50px;
+    bottom: -60px;
+    animation: moveFruit 3s linear forwards;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
 }
