@@ -37,8 +37,8 @@ Game Over screen*/
 }
 
 #gameInfo {
-    width: 90%;
-    max-width: 800px;
+    width: 95%;
+    max-width: 1000px;
     margin: 20px auto;
     display: flex;
     justify-content: space-between;
@@ -49,9 +49,9 @@ Game Over screen*/
 }
 
 #gameArea {
-    width: 90%;
-    max-width: 800px;
-    height: 500px;
+    width: 95%;
+    max-width: 1000px;
+    height: 560px;
     margin: 20px auto;
     border: 2px solid white;
     border-radius: 15px;
@@ -293,4 +293,272 @@ Game Over screen*/
     padding: 8px 16px;
     font-size: 14px;
     cursor: pointer;
+}
+/* 
+  FINAL UI / UX
+*/
+
+body {
+    min-height: 100vh;
+    padding-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 80, 80, 0.18), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(255, 180, 0, 0.15), transparent 30%),
+        linear-gradient(135deg, #160b2e, #28104d, #0b1026);
+    color: white;
+}
+
+/* 
+   START SCREEN
+ */
+
+#startScreen {
+    width: 90%;
+    max-width: 500px;
+    padding: 50px 30px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+#startScreen h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+#startScreen::after {
+    content: "Slice the fruits • Avoid the bombs • Have fun!";
+    display: block;
+    margin-top: 18px;
+    font-size: 15px;
+    opacity: 0.75;
+}
+
+/* 
+   BUTTONS
+ */
+
+#startButton,
+#playAgainButton {
+    border: none;
+    border-radius: 30px;
+    padding: 13px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(135deg, #ff3b30, #ff9500);
+    color: white;
+    box-shadow: 0 8px 20px rgba(255, 80, 30, 0.35);
+    transition: 0.25s ease;
+}
+
+#startButton:hover,
+#playAgainButton:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 12px 25px rgba(255, 80, 30, 0.5);
+}
+
+#startButton:active,
+#playAgainButton:active {
+    transform: scale(0.97);
+}
+
+/* 
+   GAME SCREEN
+*/
+
+#gameScreen {
+    width: 100%;
+    text-align: center;
+}
+
+/* 
+   GAME HUD
+ */
+
+#gameInfo {
+    width: 90%;
+    max-width: 850px;
+    margin: 0 auto 18px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 17px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+#gameInfo span {
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+}
+
+/* 
+   QUIT BUTTON
+ */
+
+#quitButton {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 12px;
+    background: #d62828;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+#quitButton:hover {
+    background: #ff3b30;
+    transform: translateY(-2px);
+}
+
+#quitButton:active {
+    transform: scale(0.95);
+}
+
+/* 
+   GAME AREA
+*/
+
+#gameArea {
+    width: 90%;
+    max-width: 850px;
+    height: 520px;
+    margin: 0 auto;
+
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 22px;
+
+    background:
+        radial-gradient(circle at 50% 100%, rgba(255, 120, 30, 0.15), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.18));
+
+    box-shadow:
+        inset 0 0 40px rgba(255, 255, 255, 0.04),
+        0 20px 50px rgba(0, 0, 0, 0.35);
+
+    overflow: hidden;
+}
+
+/* 
+   FRUITS & BOMBS
+ */
+
+.fruit,
+.bomb {
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* 
+   GAME OVER SCREEN
+*/
+
+#gameOverScreen {
+    width: 90%;
+    max-width: 500px;
+    padding: 45px 30px;
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+#gameOverScreen h1 {
+    font-size: 44px;
+    margin-bottom: 20px;
+}
+
+#gameOverScreen p {
+    font-size: 22px;
+    margin-bottom: 25px;
+}
+
+/* 
+   FAB
+ */
+
+#fabButton {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+
+    width: 52px;
+    height: 52px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: linear-gradient(135deg, #ff3b30, #ff9500);
+    color: white;
+
+    font-size: 24px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+
+    transition: 0.25s ease;
+
+    z-index: 2000;
+}
+
+#fabButton:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+#fabButton:active {
+    transform: scale(0.92);
+}
+
+/* ===
+   RESPONSIVE DESIGN
+=== */
+
+@media (max-width: 600px) {
+
+    #gameInfo {
+        grid-template-columns: repeat(2, 1fr);
+        font-size: 14px;
+    }
+
+    #quitButton {
+        width: 100%;
+    }
+
+    #gameArea {
+        height: 450px;
+    }
+
+    #startScreen h1 {
+        font-size: 38px;
+    }
+
+    #gameOverScreen h1 {
+        font-size: 36px;
+    }
+
+    #fabButton {
+        right: 15px;
+        bottom: 15px;
+    }
 }

@@ -10,6 +10,7 @@ const gameOverScreen = document.getElementById("gameOverScreen");
 const finalScoreDisplay = document.getElementById("finalScore");
 const playAgainButton = document.getElementById("playAgainButton");
 const quitButton = document.getElementById("quitButton");
+const fabButton = document.getElementById("fabButton");
 
 
 let fruitInterval;
@@ -307,4 +308,8 @@ playAgainButton.addEventListener("click", function () {
 
 quitButton.addEventListener("click",function(){
     gameOver();
+});
+
+fabButton.addEventListener("click",function(){
+    alert("HOW TO PLAY\n\"n"+"🍉Slice the fruits = +10 points\n"+"💣Don't slice the bombs!\n"+"💔Missing a fruit costs 1 life\n"+"⏱️You have 2 minutes\n\n"+"Have fun!");
 });
