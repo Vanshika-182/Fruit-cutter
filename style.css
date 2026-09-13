@@ -18,4 +18,62 @@ button {
     padding: 12px 25px;
     font-size: 16px;
     cursor: pointer;
+}* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 100px;
+}
+
+h1 {
+    margin-bottom: 30px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#gameArea {
+    width: 90%;
+    max-width: 800px;
+    height: 500px;
+    margin: 30px auto;
+    border: 2px solid white;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+}
+/*
+   Game Screens
+ */
+
+#gameScreen {
+    display: none;
+}
+
+#gameInfo {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#gameArea {
+    width: 90%;
+    max-width: 800px;
+    height: 500px;
+    margin: 20px auto;
+    border: 2px solid white;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
 }
