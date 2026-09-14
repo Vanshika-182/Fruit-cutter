@@ -22,6 +22,9 @@ let fruitInterval;
 let timerInterval;
 
 let fruitSpeed = 3;
+let spawnInterval = 1000;
+let bombChance = 0.1;
+
 let score = 0;
 let lives = 3;
 let timeLeft = 90;
@@ -59,7 +62,7 @@ level1Button.addEventListener("click", function () {
     timerDisplay.textContent = "01:30";
 
 
-    fruitInterval = setInterval(createFruit, 900);
+    fruitInterval = setInterval(createFruit, spawnInterval);
     timerInterval = setInterval(updateTimer, 1000);
 
 
@@ -89,18 +92,30 @@ function setLevelSettings(level) {
         currentLevel = 1;
         targetScore = 200;
         timeLeft = 90;
+
+        fruitSpeed = 3;
+        spawnInterval = 1000;
+        bombChance = 0.1;
     }
 
     if (level === 2) {
         currentLevel = 2;
         targetScore = 400;
         timeLeft = 120;
+
+        fruitSpeed = 2.5;
+        spawnInterval = 700;
+        bombChance = 0.2;
     }
 
     if (level === 3) {
         currentLevel = 3;
         targetScore = 600;
         timeLeft = 180;
+
+        fruitSpeed = 2;
+        spawnInterval = 450;
+        bombChance = 0.3;
     }
 }
 
@@ -128,7 +143,7 @@ function createFruit() {
     const fruit = document.createElement("div");
 
     //20% bomb 
-    if (Math.random() < 0.2) {
+    if (Math.random() < bombChance) {
         fruit.textContent = "💣";
         fruit.classList.add("bomb");
     }
