@@ -650,3 +650,8 @@ body {
         bottom: 15px;
     }
 }
+.fruit-image {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}

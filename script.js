@@ -31,7 +31,15 @@ let timeLeft = 90;
 let currentLevel = 1;
 let targetScore = 200;
 
-const fruits = ["🍉", "🥭", "🥝", "🍊", "🍇", "🍓", "🍍"];
+const fruits = [
+    "grapes.png",
+    "cherry.png",
+    "strawberry.png",
+    "pineapple.png",
+    "banana.png",
+    "apple.png",
+    "orange.png"
+];
 
 let isSlicing = false;
 
@@ -148,9 +156,16 @@ function createFruit() {
         fruit.classList.add("bomb");
     }
     else {
+        const fruitImage = document.createElement("img");
 
-        fruit.textContent = fruits[Math.floor(Math.random() * fruits.length)];
+        const randomFruit = fruits[Math.floor(Math.random() * fruits.length)];
+
+        fruitImage.src = "images/" + randomFruit;
+        fruitImage.classList.add("fruit-image");
+
+        fruit.appendChild(fruitImage);
         fruit.classList.add("fruit");
+
     }
     fruit.style.animationDuration = fruitSpeed + "s";
 
@@ -240,7 +255,11 @@ gameArea.addEventListener("mousemove", function (event) {
     //create blade
 
     createBlade(x, y);
-    const object = document.elementFromPoint(x, y);
+    let object = document.elementFromPoint(x, y);
+
+    if (object && object.tagName === "IMG") {
+        object = object.parentElement;
+    }
 
     if (object && object.classList.contains("fruit")) {
 
@@ -298,7 +317,11 @@ gameArea.addEventListener("touchmove", function (event) {
     // Create blade
     createBlade(x, y);
 
-    const object = document.elementFromPoint(x, y);
+    let object = document.elementFromPoint(x, y);
+
+    if (object && object.tagName === "IMG") {
+        object = object.parentElement;
+    }
 
     // Fruit cut
     if (object && object.classList.contains("fruit")) {
