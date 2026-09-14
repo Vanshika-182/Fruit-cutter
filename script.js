@@ -16,6 +16,8 @@ const level1Button = document.getElementById("level1Button");
 const level2Button = document.getElementById("level2Button");
 const level3Button = document.getElementById("level3Button");
 const homeButton = document.getElementById("homeButton");
+const sliceSound = new Audio("sounds/slice.mp3");
+const explosionSound = new Audio("sounds/explosion.mp3");
 
 
 let fruitInterval;
@@ -275,6 +277,10 @@ gameArea.addEventListener("mousemove", function (event) {
 
         // create splash 
         createSplash(x, y,fruitColors[object.querySelector("img").getAttribute("src").split("/").pop()]);
+     
+        //sound
+            sliceSound.currentTime = 0;
+            sliceSound.play();
 
         //create two fruit halves
         createFruitHalves(object);
@@ -296,7 +302,9 @@ gameArea.addEventListener("mousemove", function (event) {
     //bomb cut 
     if (object && object.classList.contains("bomb")) {
         createExplosion(x, y);
-        
+        explosionSound.currentTime = 0;
+        explosionSound.play();
+
         lives--;
         updateLives();
 
@@ -338,7 +346,9 @@ gameArea.addEventListener("touchmove", function (event) {
     if (object && object.classList.contains("fruit")) {
 
         createSplash(x, y, fruitColors[object.querySelector("img").getAttribute("src").split("/").pop()]);
-
+            
+            sliceSound.currentTime = 0;
+            sliceSound.play();
         createFruitHalves(object);
 
         score += 10;
@@ -356,6 +366,9 @@ gameArea.addEventListener("touchmove", function (event) {
     // Bomb cut
     if (object && object.classList.contains("bomb")) {
         createExplosion(x, y);
+
+        explosionSound.currentTime = 0;
+        explosionSound.play();
         lives--;
         updateLives();
 
