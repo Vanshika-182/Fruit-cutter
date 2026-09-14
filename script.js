@@ -24,9 +24,11 @@ let timerInterval;
 let fruitSpeed = 3;
 let score = 0;
 let lives = 3;
-let timeLeft = 120;
+let timeLeft = 90;
+let currentLevel = 1;
+let targetScore = 200;
 
-const fruits = ["🍉","🥭","🥝","🍊","🍇","🍓","🍍"];
+const fruits = ["🍉", "🥭", "🥝", "🍊", "🍇", "🍓", "🍍"];
 
 let isSlicing = false;
 
@@ -38,25 +40,27 @@ startButton.addEventListener("click", function () {
     levelScreen.style.display = "block";
 });
 
-    //level 1 button
-    level1Button.addEventListener("click",function(){
+//level 1 button
+level1Button.addEventListener("click", function () {
     levelScreen.style.display = "none";
-    gameScreen.style.display ="block";
+    gameScreen.style.display = "block";
 
     // reset game values
-    
+
     score = 0;
     lives = 3;
-    timeLeft = 120;
+    setLevelSettings(1);
     fruitSpeed = 3;
 
-    scoreDisplay.textContent = score ;
+
+
+    scoreDisplay.textContent = score;
     livesDisplay.textContent = " ❤️❤️❤️";
-    timerDisplay.textContent = "02:00";
+    timerDisplay.textContent = "01:30";
 
 
-    fruitInterval = setInterval(createFruit,900);
-    timerInterval = setInterval(updateTimer,1000);
+    fruitInterval = setInterval(createFruit, 900);
+    timerInterval = setInterval(updateTimer, 1000);
 
 
 });
@@ -78,21 +82,41 @@ level3Button.addEventListener("click", function () {
     alert("🔒 Level 3 is locked!");
 });
 
+//level unlock
+function setLevelSettings(level) {
 
+    if (level === 1) {
+        currentLevel = 1;
+        targetScore = 200;
+        timeLeft = 90;
+    }
+
+    if (level === 2) {
+        currentLevel = 2;
+        targetScore = 400;
+        timeLeft = 120;
+    }
+
+    if (level === 3) {
+        currentLevel = 3;
+        targetScore = 600;
+        timeLeft = 180;
+    }
+}
 
 //Timer
 
 
-function updateTimer(){
+function updateTimer() {
     timeLeft--;
-    const minutes = Math.floor(timeLeft/60);
+    const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
-    timerDisplay.textContent = String(minutes).padStart(2,"0")+":"+String(seconds).padStart(2,"0");
-    if (timeLeft <= 0){
+    timerDisplay.textContent = String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
+    if (timeLeft <= 0) {
         clearInterval(timerInterval);
         clearInterval(fruitInterval);
 
-        alert("Time's Up! Your Score: "+ score);
+        alert("Time's Up! Your Score: " + score);
 
     }
 }
@@ -104,14 +128,14 @@ function createFruit() {
     const fruit = document.createElement("div");
 
     //20% bomb 
-    if (Math.random() < 0.2){
-        fruit.textContent ="💣";
+    if (Math.random() < 0.2) {
+        fruit.textContent = "💣";
         fruit.classList.add("bomb");
     }
-    else{
+    else {
 
-    fruit.textContent = fruits[Math.floor(Math.random()*fruits.length)];
-    fruit.classList.add("fruit");
+        fruit.textContent = fruits[Math.floor(Math.random() * fruits.length)];
+        fruit.classList.add("fruit");
     }
     fruit.style.animationDuration = fruitSpeed + "s";
 
@@ -121,9 +145,9 @@ function createFruit() {
 
     //remove objects when animation ends 
 
-    
+
     fruit.addEventListener("animationend", function () {
-        if(fruit.classList.contains("fruit")){
+        if (fruit.classList.contains("fruit")) {
             lives--;
             updateLives();
 
@@ -135,18 +159,18 @@ function createFruit() {
 
 //update lives
 
-function updateLives(){
-    let hearts ="";
-    for(let i = 1;i <= 3;i++){
-        if(i <= lives){
+function updateLives() {
+    let hearts = "";
+    for (let i = 1; i <= 3; i++) {
+        if (i <= lives) {
             hearts += "❤️";
-        }else{
+        } else {
             hearts += "💔";
         }
     }
     livesDisplay.textContent = hearts;
-    
-    if(lives <= 0){
+
+    if (lives <= 0) {
         gameOver();
     }
 }
@@ -168,8 +192,8 @@ function gameOver() {
 
 //start slicing 
 gameArea.addEventListener("mousedown", function (event) {
-    if (event.button === 0){
-    isSlicing = true;
+    if (event.button === 0) {
+        isSlicing = true;
     }
 
 });
@@ -179,7 +203,7 @@ gameArea.addEventListener("mousedown", function (event) {
 
 
 gameArea.addEventListener("mouseup", function () {
-    
+
     isSlicing = false;
 
 });
@@ -203,8 +227,8 @@ gameArea.addEventListener("mousemove", function (event) {
     createBlade(x, y);
     const object = document.elementFromPoint(x, y);
 
-    if (object&& object.classList.contains("fruit")) {
-        
+    if (object && object.classList.contains("fruit")) {
+
 
         // create splash 
         createSplash(x, y);
@@ -215,13 +239,19 @@ gameArea.addEventListener("mousemove", function (event) {
         //Add score
         score += 10;
         scoreDisplay.textContent = score;
-        
+        if (score >= targetScore) {
+            clearInterval(fruitInterval);
+            clearInterval(timerInterval);
+
+            alert("🎉 Level Complete!");
+        }
+
         object.remove();
 
     }
 
     //bomb cut 
-    if (object && object.classList.contains("bomb")){
+    if (object && object.classList.contains("bomb")) {
         lives--;
         updateLives();
 
@@ -264,6 +294,12 @@ gameArea.addEventListener("touchmove", function (event) {
 
         score += 10;
         scoreDisplay.textContent = score;
+        if (score >= targetScore) {
+            clearInterval(fruitInterval);
+            clearInterval(timerInterval);
+
+            alert("🎉 Level Complete!");
+        }
 
         object.remove();
     }
@@ -387,12 +423,12 @@ playAgainButton.addEventListener("click", function () {
 
 //quit buttton
 
-quitButton.addEventListener("click",function(){
+quitButton.addEventListener("click", function () {
     gameOver();
 });
 
 //fab button
 
-fabButton.addEventListener("click",function(){
-    alert("HOW TO PLAY\n"+"🍉Slice the fruits = +10 points\n"+"💣Don't slice the bombs!\n"+"💔Missing a fruit costs 1 life\n"+"⏱️You have 2 minutes\n\n"+"Have fun!");
+fabButton.addEventListener("click", function () {
+    alert("HOW TO PLAY\n" + "🍉Slice the fruits = +10 points\n" + "💣Don't slice the bombs!\n" + "💔Missing a fruit costs 1 life\n" + "⏱️You have 2 minutes\n\n" + "Have fun!");
 });
