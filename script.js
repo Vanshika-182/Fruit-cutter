@@ -13,6 +13,8 @@ const quitButton = document.getElementById("quitButton");
 const fabButton = document.getElementById("fabButton");
 const levelScreen = document.getElementById("levelScreen");
 const level1Button = document.getElementById("level1Button");
+const level2Button = document.getElementById("level2Button");
+const level3Button = document.getElementById("level3Button");
 const homeButton = document.getElementById("homeButton");
 
 
@@ -66,6 +68,15 @@ homeButton.addEventListener("click", function () {
     startScreen.style.display = "block";
 });
 
+// Locked Levels
+
+level2Button.addEventListener("click", function () {
+    alert("🔒 Level 2 is locked!");
+});
+
+level3Button.addEventListener("click", function () {
+    alert("🔒 Level 3 is locked!");
+});
 
 
 
