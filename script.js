@@ -417,11 +417,10 @@ function createFruitHalves(fruit) {
 
     const rect = fruit.getBoundingClientRect();
 
+    const imageSrc = fruit.querySelector("img").src;
+
     const leftHalf = document.createElement("div");
     const rightHalf = document.createElement("div");
-
-    leftHalf.textContent = fruit.textContent;
-    rightHalf.textContent = fruit.textContent;
 
     leftHalf.classList.add("fruit-half", "left-half");
     rightHalf.classList.add("fruit-half", "right-half");
@@ -431,6 +430,10 @@ function createFruitHalves(fruit) {
 
     rightHalf.style.left = rect.left + "px";
     rightHalf.style.top = rect.top + "px";
+     
+
+    leftHalf.style.backgroundImage = `url("${imageSrc}")`;
+    rightHalf.style.backgroundImage = `url("${imageSrc}")`;
 
     gameArea.appendChild(leftHalf);
     gameArea.appendChild(rightHalf);

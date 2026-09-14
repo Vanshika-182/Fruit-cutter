@@ -655,3 +655,36 @@ body {
     height: 70px;
     object-fit: contain;
 }
+.fruit-half {
+    position: fixed;
+    width: 70px;
+    height: 70px;
+    background-size: 70px 70px;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.left-half {
+    clip-path: inset(0 50% 0 0);
+    animation: leftCut 0.5s forwards;
+}
+
+.right-half {
+    clip-path: inset(0 0 0 50%);
+    animation: rightCut 0.5s forwards;
+}
+
+@keyframes leftCut {
+    to {
+        transform: translate(-40px, 50px) rotate(-25deg);
+        opacity: 0;
+    }
+}
+
+@keyframes rightCut {
+    to {
+        transform: translate(40px, 50px) rotate(25deg);
+        opacity: 0;
+    }
+}
