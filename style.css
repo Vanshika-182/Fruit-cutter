@@ -715,3 +715,43 @@ body {
 #gameArea {
     height: calc(100vh - 100px);
 }
+/* LEVEL COMPLETE SCREEN */
+
+#levelCompleteScreen {
+    display: none;
+    width: 90%;
+    max-width: 500px;
+    padding: 50px 30px;
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+#levelCompleteScreen h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+#levelCompleteScreen p {
+    font-size: 22px;
+    margin-bottom: 30px;
+}
+
+#levelCompleteScreen button {
+    display: block;
+    width: 220px;
+    margin: 12px auto;
+    padding: 14px 20px;
+
+    border: none;
+    border-radius: 12px;
+
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}

@@ -18,7 +18,9 @@ const level3Button = document.getElementById("level3Button");
 const homeButton = document.getElementById("homeButton");
 const sliceSound = new Audio("sounds/slice.mp3");
 const explosionSound = new Audio("sounds/explosion.mp3");
-
+const levelCompleteScreen = document.getElementById("levelCompleteScreen");
+const levelFinalScore = document.getElementById("levelFinalScore");
+const nextLevelButton = document.getElementById("nextLevelButton");
 
 let fruitInterval;
 let timerInterval;
@@ -276,11 +278,11 @@ gameArea.addEventListener("mousemove", function (event) {
 
 
         // create splash 
-        createSplash(x, y,fruitColors[object.querySelector("img").getAttribute("src").split("/").pop()]);
-     
+        createSplash(x, y, fruitColors[object.querySelector("img").getAttribute("src").split("/").pop()]);
+
         //sound
-            sliceSound.currentTime = 0;
-            sliceSound.play();
+        sliceSound.currentTime = 0;
+        sliceSound.play();
 
         //create two fruit halves
         createFruitHalves(object);
@@ -292,24 +294,29 @@ gameArea.addEventListener("mousemove", function (event) {
             clearInterval(fruitInterval);
             clearInterval(timerInterval);
 
-            alert("🎉 Level Complete!");
+            levelFinalScore.textContent = score;
+
+            gameScreen.style.display = "none";
+            levelCompleteScreen.style.display = "block";
         }
 
-        object.remove();
+    
 
-    }
+    object.remove();
+
+}
 
     //bomb cut 
     if (object && object.classList.contains("bomb")) {
-        createExplosion(x, y);
-        explosionSound.currentTime = 0;
-        explosionSound.play();
+    createExplosion(x, y);
+    explosionSound.currentTime = 0;
+    explosionSound.play();
 
-        lives--;
-        updateLives();
+    lives--;
+    updateLives();
 
-        object.remove();
-    }
+    object.remove();
+}
 
 });
 
@@ -346,9 +353,9 @@ gameArea.addEventListener("touchmove", function (event) {
     if (object && object.classList.contains("fruit")) {
 
         createSplash(x, y, fruitColors[object.querySelector("img").getAttribute("src").split("/").pop()]);
-            
-            sliceSound.currentTime = 0;
-            sliceSound.play();
+
+        sliceSound.currentTime = 0;
+        sliceSound.play();
         createFruitHalves(object);
 
         score += 10;
@@ -357,23 +364,26 @@ gameArea.addEventListener("touchmove", function (event) {
             clearInterval(fruitInterval);
             clearInterval(timerInterval);
 
-            alert("🎉 Level Complete!");
-        }
+            levelFinalScore.textContent = score;
 
-        object.remove();
-    }
+            gameScreen.style.display = "none";
+            levelCompleteScreen.style.display = "block";
+        }
+    
+    object.remove();
+}
 
     // Bomb cut
     if (object && object.classList.contains("bomb")) {
-        createExplosion(x, y);
+    createExplosion(x, y);
 
-        explosionSound.currentTime = 0;
-        explosionSound.play();
-        lives--;
-        updateLives();
+    explosionSound.currentTime = 0;
+    explosionSound.play();
+    lives--;
+    updateLives();
 
-        object.remove();
-    }
+    object.remove();
+}
 
 }, { passive: false });
 
@@ -471,7 +481,7 @@ function createFruitHalves(fruit) {
 
     rightHalf.style.left = rect.left + "px";
     rightHalf.style.top = rect.top + "px";
-     
+
 
     leftHalf.style.backgroundImage = `url("${imageSrc}")`;
     rightHalf.style.backgroundImage = `url("${imageSrc}")`;
@@ -513,4 +523,27 @@ quitButton.addEventListener("click", function () {
 
 fabButton.addEventListener("click", function () {
     alert("HOW TO PLAY\n" + "🍉Slice the fruits = +10 points\n" + "💣Don't slice the bombs!\n" + "💔Missing a fruit costs 1 life\n" + "⏱️You have 2 minutes\n\n" + "Have fun!");
+});
+//next level
+nextLevelButton.addEventListener("click", function () {
+    levelCompleteScreen.style.display = "none";
+    gameScreen.style.display = "block";
+
+    score = 0;
+    lives = 3;
+
+    setLevelSettings(currentLevel + 1);
+
+    scoreDisplay.textContent = score;
+    livesDisplay.textContent = "❤️❤️❤️";
+
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    timerDisplay.textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+
+    fruitInterval = setInterval(createFruit, spawnInterval);
+    timerInterval = setInterval(updateTimer, 1000);
 });
