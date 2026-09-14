@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fruit Cutter</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div id="startScreen">
-    <h1>🍉Fruit Cutter</h1>
-    <button id="startButton">START GAME</button>
+        <h1>🍉Fruit Cutter</h1>
+        <button id="startButton">START GAME</button>
     </div>
-    
+
+
+    <div id="levelScreen">
+        <h1>SELECT LEVEL</h1>
+
+        <div id="levelContainer">
+
+            <button class="levelButton" id="level1Button">
+                🟢 LEVEL 1
+            </button>
+
+            <button class="levelButton locked" id="level2Button">
+                🔒 LEVEL 2
+            </button>
+
+            <button class="levelButton locked" id="level3Button">
+                🔒 LEVEL 3
+            </button>
+
+        </div>
+
+        <button id="homeButton">🏠 HOME</button>
+    </div>
+
+
+
     <div id="gameScreen">
         <div id="gameInfo">
             <span>Score:<b id="score">0</b></span>
@@ -31,4 +58,5 @@
     <button id="fabButton" title="How to Play">?</button>
     <script src="script.js"></script>
 </body>
+
 </html>

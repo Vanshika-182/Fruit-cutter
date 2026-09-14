@@ -11,6 +11,9 @@ const finalScoreDisplay = document.getElementById("finalScore");
 const playAgainButton = document.getElementById("playAgainButton");
 const quitButton = document.getElementById("quitButton");
 const fabButton = document.getElementById("fabButton");
+const levelScreen = document.getElementById("levelScreen");
+const level1Button = document.getElementById("level1Button");
+const homeButton = document.getElementById("homeButton");
 
 
 let fruitInterval;
@@ -30,13 +33,20 @@ let isSlicing = false;
 
 startButton.addEventListener("click", function () {
     startScreen.style.display = "none";
-    gameScreen.style.display = "block";
+    levelScreen.style.display = "block";
+});
+
+    //level 1 button
+    level1Button.addEventListener("click",function(){
+    levelScreen.style.display = "none";
+    gameScreen.style.display ="block";
 
     // reset game values
     
     score = 0;
     lives = 3;
     timeLeft = 120;
+    fruitSpeed = 3;
 
     scoreDisplay.textContent = score ;
     livesDisplay.textContent = " ❤️❤️❤️";
@@ -46,13 +56,17 @@ startButton.addEventListener("click", function () {
     fruitInterval = setInterval(createFruit,900);
     timerInterval = setInterval(updateTimer,1000);
 
-    setInterval(function(){
-        if (fruitSpeed > 0.8){
-            fruitSpeed -= 0.2;
-        }
-    },4000);
 
 });
+
+//home button 
+
+homeButton.addEventListener("click", function () {
+    levelScreen.style.display = "none";
+    startScreen.style.display = "block";
+});
+
+
 
 
 //Timer
