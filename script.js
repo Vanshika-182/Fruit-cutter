@@ -40,6 +40,15 @@ const fruits = [
     "apple.png",
     "orange.png"
 ];
+const fruitColors = {
+    "grapes.png": "#8e44ad",
+    "cherry.png": "#e74c3c",
+    "strawberry.png": "#ff4d6d",
+    "pineapple.png": "#f1c40f",
+    "banana.png": "#ffd93d",
+    "apple.png": "#ff3b30",
+    "orange.png": "#ff9500"
+};
 
 let isSlicing = false;
 
@@ -265,7 +274,7 @@ gameArea.addEventListener("mousemove", function (event) {
 
 
         // create splash 
-        createSplash(x, y);
+        createSplash(x, y,fruitColors[object.querySelector("img").getAttribute("src").split("/").pop()]);
 
         //create two fruit halves
         createFruitHalves(object);
@@ -326,7 +335,7 @@ gameArea.addEventListener("touchmove", function (event) {
     // Fruit cut
     if (object && object.classList.contains("fruit")) {
 
-        createSplash(x, y);
+        createSplash(x, y, fruitColors[object.querySelector("img").getAttribute("src").split("/").pop()]);
 
         createFruitHalves(object);
 
@@ -378,13 +387,14 @@ function createBlade(x, y) {
 
 // Splash Effect
 
-function createSplash(x, y) {
+function createSplash(x, y, color) {
 
     for (let i = 0; i < 14; i++) {
 
         const particle = document.createElement("div");
 
         particle.classList.add("splash");
+        particle.style.backgroundColor = color;
 
         particle.style.left = x + "px";
         particle.style.top = y + "px";
