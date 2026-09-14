@@ -295,6 +295,8 @@ gameArea.addEventListener("mousemove", function (event) {
 
     //bomb cut 
     if (object && object.classList.contains("bomb")) {
+        createExplosion(x, y);
+        
         lives--;
         updateLives();
 
@@ -353,7 +355,7 @@ gameArea.addEventListener("touchmove", function (event) {
 
     // Bomb cut
     if (object && object.classList.contains("bomb")) {
-
+        createExplosion(x, y);
         lives--;
         updateLives();
 
@@ -420,6 +422,22 @@ function createSplash(x, y, color) {
     }
 }
 
+//explosion
+function createExplosion(x, y) {
+    const explosion = document.createElement("div");
+
+    explosion.classList.add("explosion");
+    explosion.textContent = "💥";
+
+    explosion.style.left = x + "px";
+    explosion.style.top = y + "px";
+
+    gameArea.appendChild(explosion);
+
+    setTimeout(function () {
+        explosion.remove();
+    }, 500);
+}
 
 // Fruit Split Effect
 
