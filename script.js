@@ -360,10 +360,13 @@ playAgainButton.addEventListener("click", function () {
     timerInterval = setInterval(updateTimer, 1000);
 });
 
+//quit buttton
 
 quitButton.addEventListener("click",function(){
     gameOver();
 });
+
+//fab button
 
 fabButton.addEventListener("click",function(){
     alert("HOW TO PLAY\n"+"🍉Slice the fruits = +10 points\n"+"💣Don't slice the bombs!\n"+"💔Missing a fruit costs 1 life\n"+"⏱️You have 2 minutes\n\n"+"Have fun!");
