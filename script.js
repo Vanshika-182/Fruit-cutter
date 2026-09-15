@@ -25,6 +25,10 @@ const timeUpScreen = document.getElementById("timeUpScreen");
 const timeUpScore = document.getElementById("timeUpScore");
 const timeUpPlayAgainButton = document.getElementById("timeUpPlayAgainButton");
 const timeUpQuitButton = document.getElementById("timeUpQuitButton");
+const finalCongratulationsScreen = document.getElementById("finalCongratulationsScreen");
+const finalCongratulationsScore = document.getElementById("finalCongratulationsScore");
+const finalPlayAgainButton = document.getElementById("finalPlayAgainButton");
+const finalLevelsButton = document.getElementById("finalLevelsButton");
 
 
 let fruitInterval;
@@ -304,10 +308,18 @@ gameArea.addEventListener("mousemove", function (event) {
             clearInterval(fruitInterval);
             clearInterval(timerInterval);
 
-            levelFinalScore.textContent = score;
-
             gameScreen.style.display = "none";
-            levelCompleteScreen.style.display = "block";
+            if (currentLevel == 3) {
+                finalCongratulationsScreen.style.display = "block";
+                finalCongratulationsScore.textContent = score;
+
+            } else {
+                levelCompleteScreen.style.display = "block";
+                levelFinalScore.textContent = score;
+
+            }
+            return;
+
         }
 
 
@@ -359,6 +371,7 @@ gameArea.addEventListener("touchmove", function (event) {
         object = object.parentElement;
     }
 
+
     // Fruit cut
     if (object && object.classList.contains("fruit")) {
 
@@ -373,29 +386,35 @@ gameArea.addEventListener("touchmove", function (event) {
         if (score >= targetScore) {
             clearInterval(fruitInterval);
             clearInterval(timerInterval);
-
-            levelFinalScore.textContent = score;
-
             gameScreen.style.display = "none";
-            levelCompleteScreen.style.display = "block";
+
+            if (currentLevel == 3) {
+                finalCongratulationsScreen.style.display = "block";
+                finalCongratulationsScore.textContent = score;
+            } else {
+                levelCompleteScreen.style.display = "block";
+                levelFinalScore.textContent = score;
+
+
+            }
         }
 
-        object.remove();
-    }
+            object.remove();
+        }
 
-    // Bomb cut
-    if (object && object.classList.contains("bomb")) {
-        createExplosion(x, y);
+        // Bomb cut
+        if (object && object.classList.contains("bomb")) {
+            createExplosion(x, y);
 
-        explosionSound.currentTime = 0;
-        explosionSound.play();
-        lives--;
-        updateLives();
+            explosionSound.currentTime = 0;
+            explosionSound.play();
+            lives--;
+            updateLives();
 
-        object.remove();
-    }
+            object.remove();
+        }
 
-}, { passive: false });
+    }, { passive: false });
 
 
 gameArea.addEventListener("touchend", function () {
@@ -586,5 +605,32 @@ timeUpPlayAgainButton.addEventListener("click", function () {
 });
 timeUpQuitButton.addEventListener("click", function () {
     timeUpScreen.style.display = "none";
+    levelScreen.style.display = "block";
+});
+//final play again
+finalPlayAgainButton.addEventListener("click", function () {
+    finalCongratulationsScreen.style.display = "none";
+    gameScreen.style.display = "block";
+
+    score = 0;
+    lives = 3;
+
+    setLevelSettings(1);
+
+    scoreDisplay.textContent = score;
+    livesDisplay.textContent = "❤️❤️❤️";
+
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    timerDisplay.textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+
+    fruitInterval = setInterval(createFruit, spawnInterval);
+    timerInterval = setInterval(updateTimer, 1000);
+});
+finalLevelsButton.addEventListener("click", function () {
+    finalCongratulationsScreen.style.display = "none";
     levelScreen.style.display = "block";
 });
