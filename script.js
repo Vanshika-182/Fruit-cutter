@@ -80,7 +80,7 @@ level1Button.addEventListener("click", function () {
 
     scoreDisplay.textContent = score;
     livesDisplay.textContent = " ❤️❤️❤️";
-    timerDisplay.textContent = "01:30";
+    timerDisplay.textContent = "01:00";
 
 
     fruitInterval = setInterval(createFruit, spawnInterval);
@@ -112,7 +112,7 @@ function setLevelSettings(level) {
     if (level === 1) {
         currentLevel = 1;
         targetScore = 200;
-        timeLeft = 90;
+        timeLeft = 60;
 
         fruitSpeed = 3;
         spawnInterval = 1000;
@@ -122,7 +122,7 @@ function setLevelSettings(level) {
     if (level === 2) {
         currentLevel = 2;
         targetScore = 400;
-        timeLeft = 120;
+        timeLeft = 90;
 
         fruitSpeed = 2.5;
         spawnInterval = 700;
@@ -132,7 +132,7 @@ function setLevelSettings(level) {
     if (level === 3) {
         currentLevel = 3;
         targetScore = 600;
-        timeLeft = 180;
+        timeLeft = 120;
 
         fruitSpeed = 2;
         spawnInterval = 450;
@@ -502,14 +502,19 @@ playAgainButton.addEventListener("click", function () {
 
     score = 0;
     lives = 3;
-    timeLeft = 120;
-    fruitSpeed = 3;
+    
+    setLevelSettings(currentLevel);
 
     scoreDisplay.textContent = score;
     livesDisplay.textContent = "❤️❤️❤️";
-    timerDisplay.textContent = "02:00";
 
-    fruitInterval = setInterval(createFruit, 900);
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    timerDisplay.textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+    fruitInterval = setInterval(createFruit, spawnInterval);
     timerInterval = setInterval(updateTimer, 1000);
 });
 
