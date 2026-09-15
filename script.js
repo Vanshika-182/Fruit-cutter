@@ -21,6 +21,11 @@ const explosionSound = new Audio("sounds/explosion.mp3");
 const levelCompleteScreen = document.getElementById("levelCompleteScreen");
 const levelFinalScore = document.getElementById("levelFinalScore");
 const nextLevelButton = document.getElementById("nextLevelButton");
+const timeUpScreen = document.getElementById("timeUpScreen");
+const timeUpScore = document.getElementById("timeUpScore");
+const timeUpPlayAgainButton = document.getElementById("timeUpPlayAgainButton");
+const timeUpQuitButton = document.getElementById("timeUpQuitButton");
+
 
 let fruitInterval;
 let timerInterval;
@@ -151,8 +156,13 @@ function updateTimer() {
     if (timeLeft <= 0) {
         clearInterval(timerInterval);
         clearInterval(fruitInterval);
+        gameArea.innerHTML = "";
 
-        alert("Time's Up! Your Score: " + score);
+        gameScreen.style.display = "none";
+        timeUpScreen.style.display = "block";
+
+        timeUpScore.textContent = score
+
 
     }
 }
@@ -300,23 +310,23 @@ gameArea.addEventListener("mousemove", function (event) {
             levelCompleteScreen.style.display = "block";
         }
 
-    
 
-    object.remove();
 
-}
+        object.remove();
+
+    }
 
     //bomb cut 
     if (object && object.classList.contains("bomb")) {
-    createExplosion(x, y);
-    explosionSound.currentTime = 0;
-    explosionSound.play();
+        createExplosion(x, y);
+        explosionSound.currentTime = 0;
+        explosionSound.play();
 
-    lives--;
-    updateLives();
+        lives--;
+        updateLives();
 
-    object.remove();
-}
+        object.remove();
+    }
 
 });
 
@@ -369,21 +379,21 @@ gameArea.addEventListener("touchmove", function (event) {
             gameScreen.style.display = "none";
             levelCompleteScreen.style.display = "block";
         }
-    
-    object.remove();
-}
+
+        object.remove();
+    }
 
     // Bomb cut
     if (object && object.classList.contains("bomb")) {
-    createExplosion(x, y);
+        createExplosion(x, y);
 
-    explosionSound.currentTime = 0;
-    explosionSound.play();
-    lives--;
-    updateLives();
+        explosionSound.currentTime = 0;
+        explosionSound.play();
+        lives--;
+        updateLives();
 
-    object.remove();
-}
+        object.remove();
+    }
 
 }, { passive: false });
 
@@ -502,7 +512,7 @@ playAgainButton.addEventListener("click", function () {
 
     score = 0;
     lives = 3;
-    
+
     setLevelSettings(currentLevel);
 
     scoreDisplay.textContent = score;
@@ -551,4 +561,30 @@ nextLevelButton.addEventListener("click", function () {
 
     fruitInterval = setInterval(createFruit, spawnInterval);
     timerInterval = setInterval(updateTimer, 1000);
+});
+timeUpPlayAgainButton.addEventListener("click", function () {
+    timeUpScreen.style.display = "none";
+    gameScreen.style.display = "block";
+
+    score = 0;
+    lives = 3;
+
+    setLevelSettings(currentLevel);
+
+    scoreDisplay.textContent = score;
+    livesDisplay.textContent = "❤️❤️❤️";
+
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    timerDisplay.textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+
+    fruitInterval = setInterval(createFruit, spawnInterval);
+    timerInterval = setInterval(updateTimer, 1000);
+});
+timeUpQuitButton.addEventListener("click", function () {
+    timeUpScreen.style.display = "none";
+    levelScreen.style.display = "block";
 });
